@@ -32,9 +32,21 @@ REM Compile kernel sources
 %CC% %CFLAGS% -c utils/k_stdio.c -o utils/k_stdio.o || goto :error
 %CC% %CFLAGS% -c utils/k_memory.c -o utils/k_memory.o || goto :error
 %CC% %CFLAGS% -c utils/k_string.c -o utils/k_string.o || goto :error
+%CC% %CFLAGS% -c user/calc.c -o user/calc.o || goto :error
+%CC% %CFLAGS% -c user/cat.c -o user/cat.o || goto :error
+%CC% %CFLAGS% -c user/echo.c -o user/echo.o || goto :error
+%CC% %CFLAGS% -c user/ls.c -o user/ls.o || goto :error
+%CC% %CFLAGS% -c user/ps.c -o user/ps.o || goto :error
+%CC% %CFLAGS% -c user/time.c -o user/time.o || goto :error
+%CC% %CFLAGS% -c user/sysinfo.c -o user/sysinfo.o || goto :error
+%CC% %CFLAGS% -c user/mkdir.c -o user/mkdir.o || goto :error
+%CC% %CFLAGS% -c user/rmdir.c -o user/rmdir.o || goto :error
+%CC% %CFLAGS% -c user/cp.c -o user/cp.o || goto :error
+%CC% %CFLAGS% -c user/mv.c -o user/mv.o || goto :error
+%CC% %CFLAGS% -c user/df.c -o user/df.o || goto :error
 
 REM Link kernel (use gcc as linker)
-%CC% -ffreestanding -nostdlib -T kernel/linker.ld -Wl,--oformat=binary -o kernel.bin kernel/boot.o kernel/kernel.o kernel/scheduler.o kernel/syscall.o kernel/process.o kernel/memory.o kernel/timer.o shell/shell.o shell/builtin.o shell/command.o wm/wm.o wm/terminal.o drivers/keyboard.o drivers/screen.o drivers/vga.o utils/log.o utils/k_stdio.o utils/k_memory.o utils/k_string.o || goto :error
+%CC% -ffreestanding -nostdlib -T kernel/linker.ld -Wl,--oformat=binary -o kernel.bin kernel/boot.o kernel/kernel.o kernel/scheduler.o kernel/syscall.o kernel/process.o kernel/memory.o kernel/timer.o shell/shell.o shell/builtin.o shell/command.o wm/wm.o wm/terminal.o drivers/keyboard.o drivers/screen.o drivers/vga.o utils/log.o utils/k_stdio.o utils/k_memory.o utils/k_string.o user/calc.o user/cat.o user/echo.o user/ls.o user/ps.o user/time.o user/sysinfo.o user/mkdir.o user/rmdir.o user/cp.o user/mv.o user/df.o || goto :error
 
 REM Copy kernel.bin to ISO boot folder
 copy /Y kernel.bin iso\boot\kernel.bin || goto :error
